@@ -43,7 +43,7 @@ export const Calendar = () => {
    * @description compare the days with the days selected to watch who match
    */
   const handleSelectedDay = (daySelected: string) => {
-   const newState =  actualMonthState.map((dayOfMonth, index) => {
+   const newState =  actualMonthState.map((dayOfMonth) => {
       return (
         daySelected === (`${dayOfMonth.dayName}/${dayOfMonth.dayNumber}`) ? { ...dayOfMonth, daySelected: true } :  { ...dayOfMonth, daySelected: false }
       )
@@ -128,7 +128,7 @@ export const Calendar = () => {
         <Slider {...settings}>
           
             {
-              actualMonthState.map((day, index) => (
+              actualMonthState.map((day) => (
                 <div key={`${day.dayName}/${day.dayNumber}`}>
 
                   <CalendarItem
