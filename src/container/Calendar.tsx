@@ -7,8 +7,7 @@ import {
 	actualMonthName,
 	todayFormatted,
 } from "../utils/ActualMonth";
-import { Button, Menu, MenuItem } from "@mui/material";
-import CalendarMonthTwoTone from "@mui/icons-material/CalendarMonthTwoTone";
+import { CalendarOptions } from "../components/CalendarOptions";
 import { PrevArrow } from "../components/PrevArrow";
 import { NextArrow } from "../components/NextArrow";
 
@@ -20,9 +19,11 @@ export const Calendar = () => {
 		"Monthly"
 	);
 	const open = Boolean(anchorEl);
+
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
+
 	const handleClose = (setting?: "Weekly" | "Monthly") => {
 		setCalendarOption(setting ? setting : calendarOption);
 		setAnchorEl(null);
@@ -62,52 +63,13 @@ export const Calendar = () => {
 
 	return (
 		<div className="container">
-			<div className="calendarOptions">
-				<div className="calendarOptions__title">
-					<h1> {actualMonthName} </h1>
-				</div>
-				<div className="calendarOptions__menu">
-					<div>
-						<Button
-							id="calendar-settings"
-							aria-controls={open ? "demo-positioned-menu" : undefined}
-							aria-haspopup="true"
-							aria-expanded={open ? "true" : undefined}
-							onClick={handleClick}
-						>
-							Options
-						</Button>
-						<Menu
-							id="demo-positioned-menu"
-							aria-labelledby="calendar-settings"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={() => handleClose()}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-						>
-							<MenuItem onClick={() => handleClose("Weekly")}>
-								<Button variant="outlined" endIcon={<CalendarMonthTwoTone />}>
-									{" "}
-									Weekly{" "}
-								</Button>
-							</MenuItem>
-							<MenuItem onClick={() => handleClose("Monthly")}>
-								<Button variant="outlined" endIcon={<CalendarMonthTwoTone />}>
-									{" "}
-									Monthly{" "}
-								</Button>
-							</MenuItem>
-						</Menu>
-					</div>
-				</div>
-			</div>
+			<CalendarOptions
+				actualMonthName={actualMonthName}
+				open={open}
+				anchorEl={anchorEl}
+				onOpen={handleClick}
+				onClose={handleClose}
+			/>
 			<Slider {...settings}>
 				{actualMonthState.map((day) => (
 					<div key={`${day.dayName}/${day.dayNumber}`}>
